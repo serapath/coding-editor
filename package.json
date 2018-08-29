@@ -1,0 +1,27 @@
+{
+  "name": "code-editor",
+  "version": "0.0.0",
+  "description": "codemirror based code-editor",
+  "main": "src/editor.js",
+  "scripts": {
+    "start": "budo demo.js:bundle.js --open --live",
+    "build": "browserify demo.js > bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "embed",
+    "embeddable",
+    "editor",
+    "codemirror"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bel": "^6.0.0",
+    "codemirror": "^5.39.2",
+    "csjs-inject": "^1.0.1"
+  },
+  "devDependencies": {
+    "budo": "^11.3.2"
+  }
+}
