@@ -14553,7 +14553,6 @@ const css = csjs`
   flex-grow: 1;
   align-items: center;
   margin: 5px;
-  background-color: pink;
 }`
 
 /*
