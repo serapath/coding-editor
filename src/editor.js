@@ -8,6 +8,9 @@ const mode_js = require('codemirror/mode/javascript/javascript')
 const mode_html = require('codemirror/mode/htmlmixed/htmlmixed')
 const mode_ehtml = require('codemirror/mode/htmlembedded/htmlembedded')
 
+const style = require('./style.js')
+document.head.appendChild(style)
+
 // THEME
 // <link href="theme/neo.css">
 // <link href="codemirror/theme/dracula.css" rel="stylesheet">
@@ -157,25 +160,12 @@ function debounce (fn) {
   }
 }
 
-const prefix = __dirname.split('/').slice(0, -1).join('/')
-style(prefix + '/node_modules/codemirror/lib/codemirror.css')
-style(prefix + '/node_modules/codemirror/theme/ambiance.css')
-
-function style (path) {
-  const link = document.createElement('link')
-  link.setAttribute('rel', 'stylesheet')
-  link.setAttribute('type', 'text/css')
-  link.setAttribute('href', path)
-  document.head.appendChild(link)
-}
-
 const css = csjs`
 .editor {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
-  margin: 5px;
 }`
 
 /*

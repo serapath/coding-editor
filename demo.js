@@ -3,14 +3,14 @@ const editor = require('./')
 document.title = 'editor'
 
 const style = document.createElement('style')
-style.innerHTML = `
-  <style>
-    html { box-sizing: border-box; display: table; min-width: 100%; margin: 0; }
-    *, *:before, *:after { box-sizing: inherit; }
-    img { box-sizing: content-box; }
-    iframe { border: 0; height: 100vh; }
-    body { margin: 0; display: flex; flex-flow: column; min-height: 100vh; }
-  </style>`
+style.setAttribute('class', 'base')
+style.textContent = `
+  html { box-sizing: border-box; display: table; min-width: 100%; margin: 0; }
+  *, *:before, *:after { box-sizing: inherit; }
+  img { box-sizing: content-box; }
+  iframe { border: 0; height: 100vh; }
+  body { margin: 0; display: flex; flex-flow: column; min-height: 100vh; }
+`
 document.head.appendChild(style)
 
 const src = `function testFunction () {
