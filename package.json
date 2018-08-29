@@ -1,6 +1,6 @@
 {
-  "name": "code-editor",
-  "version": "0.0.0",
+  "name": "coding-editor",
+  "version": "0.0.1",
   "description": "codemirror based code-editor",
   "main": "src/editor.js",
   "scripts": {
