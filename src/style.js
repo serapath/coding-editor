@@ -1,6 +1,42 @@
+const csjs = require('csjs-inject')
+
 const style = document.createElement('style')
 style.setAttribute('class', 'codemirror')
-style.textContent = `
+document.head.appendChild(style)
+
+const theme = document.createElement('style')
+theme.setAttribute('class', 'theme')
+document.head.appendChild(theme)
+
+module.exports = (THEMES => (theme, key = JSON.stringify(theme)) =>{
+  return THEMES.get(key) || THEMES.set(key, defaults(theme)).get(key)
+} // @TODO: maybe use "WeakMap" instead? ...and init on first use?
+)(new Map([]))
+
+const defaults = ({
+  color_bgEditor = 'hsla(0, 0%, 14%, 1)',
+  color_bgLinebar = 'hsla(0, 0%, 14%, 1)',
+  color_seperator = 'hsla(0, 0%, 8%, 1)',
+} = {}) => {
+  const css = csjs`
+    .editor {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      align-items: center;
+    }`
+  // MORE JAVASCRIPT THEMES:
+  // https://github.com/codemirror/CodeMirror/tree/ed8dfeb5e2ed25b5dd1f1eccc7b757ca6dbd118d/theme
+  // theme.textContent = require('./theme1.js')({
+  // theme.textContent = require('./theme2.js')({
+  // theme.textContent = require('./theme3.js')({
+  theme.textContent = require('./theme4.js')({
+    color_bgEditor,
+    color_bgLinebar,
+    color_seperator
+  })
+  style.textContent = `
   /* BASICS */
 
   .CodeMirror {
@@ -27,8 +63,8 @@ style.textContent = `
   /* GUTTER */
 
   .CodeMirror-gutters {
-    border-right: 1px solid #ddd;
-    background-color: #f7f7f7;
+    border-right: 2px solid ${color_seperator};
+    background-color: ${color_bgLinebar};
     white-space: nowrap;
   }
   .CodeMirror-linenumbers {}
@@ -161,7 +197,7 @@ style.textContent = `
   .CodeMirror {
     position: relative;
     overflow: hidden;
-    background: white;
+    background: ${color_bgEditor};
   }
 
   .CodeMirror-scroll {
@@ -346,6 +382,6 @@ style.textContent = `
   .cm-tab-wrap-hack:after { content: ''; }
 
   /* Help users use markselection to safely style text background */
-  span.CodeMirror-selectedtext { background: none; }
-`
-module.exports = style
+  span.CodeMirror-selectedtext { background: none; }`
+  return css
+}

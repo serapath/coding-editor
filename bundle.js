@@ -1,37 +1,46 @@
-(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-const editor = require('./')
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/demo/demo.js":[function(require,module,exports){
+document.title = 'coding-editor'
 
-document.title = 'editor'
+const editor = require('../')
+
+setTimeout(async () => {
+  const src = [...Array(100)].map(x => `
+    function findSequence(goal) {
+      function find(start, history) {
+        if (start == goal)
+        return history;
+        else if (start > goal)
+        return null;
+        else
+        return find(start + 5, "(" + history + " + 5)") ||
+        find(start * 3, "(" + history + " * 3)");
+      }
+      return find(1, "1");
+    }
+    `).join('')
+  const element = editor({
+    value: src,
+    lineNumbers: true,
+  })
+  document.body.appendChild(element)
+  window.api = element.api
+  var value = api.getValue()
+  console.log(value)
+  api.on('change', () => console.log(api.getValue()))
+}, 0)
 
 const style = document.createElement('style')
 style.setAttribute('class', 'base')
 style.textContent = `
   html { box-sizing: border-box; display: table; min-width: 100%; margin: 0; }
   *, *:before, *:after { box-sizing: inherit; }
-  img { box-sizing: content-box; }
-  iframe { border: 0; height: 100vh; }
   body { margin: 0; display: flex; flex-flow: column; min-height: 100vh; }
+  iframe { border: 0; height: 100vh; }
+  img { box-sizing: content-box; }
 `
 document.head.appendChild(style)
 
-const src = `function testFunction () {
-  alert('hello world)
-  return true
-}`
-
-const element = editor({
-  value: src,
-  lineNumbers: true,
-})
-document.body.appendChild(element)
-
-window.api = element.api
-api.on('change', () => console.log(api.getValue()))
-
-var value = api.getValue()
-console.log(value)
-
-},{"./":35}],2:[function(require,module,exports){
+},{"../":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/src/editor.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/bel/appendChild.js":[function(require,module,exports){
 var trailingNewlineRegex = /\n[\s]+$/
 var leadingNewlineRegex = /^\n[\s]+/
 var trailingSpaceRegex = /[\s]+$/
@@ -164,7 +173,7 @@ module.exports = function appendChild (el, childs) {
   }
 }
 
-},{}],3:[function(require,module,exports){
+},{}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/bel/browser.js":[function(require,module,exports){
 var hyperx = require('hyperx')
 var appendChild = require('./appendChild')
 
@@ -265,7 +274,7 @@ module.exports = hyperx(belCreateElement, {comments: true})
 module.exports.default = module.exports
 module.exports.createElement = belCreateElement
 
-},{"./appendChild":2,"hyperx":33}],4:[function(require,module,exports){
+},{"./appendChild":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/bel/appendChild.js","hyperx":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/hyperx/index.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/addon/mode/multiplex.js":[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -398,7 +407,7 @@ CodeMirror.multiplexingMode = function(outer /*, others */) {
 
 });
 
-},{"../../lib/codemirror":5}],5:[function(require,module,exports){
+},{"../../lib/codemirror":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js":[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -10102,7 +10111,7 @@ return CodeMirror$1;
 
 })));
 
-},{}],6:[function(require,module,exports){
+},{}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/css/css.js":[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -10936,7 +10945,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
 
 });
 
-},{"../../lib/codemirror":5}],7:[function(require,module,exports){
+},{"../../lib/codemirror":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/htmlembedded/htmlembedded.js":[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -10975,7 +10984,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
   CodeMirror.defineMIME("application/x-erb", {name: "htmlembedded", scriptingModeSpec:"ruby"});
 });
 
-},{"../../addon/mode/multiplex":4,"../../lib/codemirror":5,"../htmlmixed/htmlmixed":8}],8:[function(require,module,exports){
+},{"../../addon/mode/multiplex":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/addon/mode/multiplex.js","../../lib/codemirror":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js","../htmlmixed/htmlmixed":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/htmlmixed/htmlmixed.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/htmlmixed/htmlmixed.js":[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -11129,7 +11138,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
   CodeMirror.defineMIME("text/html", "htmlmixed");
 });
 
-},{"../../lib/codemirror":5,"../css/css":6,"../javascript/javascript":9,"../xml/xml":12}],9:[function(require,module,exports){
+},{"../../lib/codemirror":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js","../css/css":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/css/css.js","../javascript/javascript":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/javascript/javascript.js","../xml/xml":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/xml/xml.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/javascript/javascript.js":[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -12027,7 +12036,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
 });
 
-},{"../../lib/codemirror":5}],10:[function(require,module,exports){
+},{"../../lib/codemirror":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/markdown/markdown.js":[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -12913,7 +12922,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 });
 
-},{"../../lib/codemirror":5,"../meta":11,"../xml/xml":12}],11:[function(require,module,exports){
+},{"../../lib/codemirror":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js","../meta":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/meta.js","../xml/xml":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/xml/xml.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/meta.js":[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -13132,7 +13141,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
   };
 });
 
-},{"../lib/codemirror":5}],12:[function(require,module,exports){
+},{"../lib/codemirror":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/xml/xml.js":[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -13536,7 +13545,7 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 });
 
-},{"../../lib/codemirror":5}],13:[function(require,module,exports){
+},{"../../lib/codemirror":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs-inject/csjs.js":[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -13555,12 +13564,12 @@ function csjsInserter() {
 module.exports = csjsInserter;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"csjs":18,"insert-css":34}],14:[function(require,module,exports){
+},{"csjs":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/index.js","insert-css":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/insert-css/index.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs-inject/get-css.js":[function(require,module,exports){
 'use strict';
 
 module.exports = require('csjs/get-css');
 
-},{"csjs/get-css":17}],15:[function(require,module,exports){
+},{"csjs/get-css":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/get-css.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs-inject/index.js":[function(require,module,exports){
 'use strict';
 
 var csjs = require('./csjs');
@@ -13569,17 +13578,17 @@ module.exports = csjs;
 module.exports.csjs = csjs;
 module.exports.getCss = require('./get-css');
 
-},{"./csjs":13,"./get-css":14}],16:[function(require,module,exports){
+},{"./csjs":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs-inject/csjs.js","./get-css":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs-inject/get-css.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/csjs.js":[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/csjs');
 
-},{"./lib/csjs":22}],17:[function(require,module,exports){
+},{"./lib/csjs":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/csjs.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/get-css.js":[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/get-css');
 
-},{"./lib/get-css":26}],18:[function(require,module,exports){
+},{"./lib/get-css":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/get-css.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/index.js":[function(require,module,exports){
 'use strict';
 
 var csjs = require('./csjs');
@@ -13589,7 +13598,7 @@ module.exports.csjs = csjs;
 module.exports.noScope = csjs({ noscope: true });
 module.exports.getCss = require('./get-css');
 
-},{"./csjs":16,"./get-css":17}],19:[function(require,module,exports){
+},{"./csjs":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/csjs.js","./get-css":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/get-css.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/base62-encode.js":[function(require,module,exports){
 'use strict';
 
 /**
@@ -13611,7 +13620,7 @@ module.exports = function encode(integer) {
   return str;
 };
 
-},{}],20:[function(require,module,exports){
+},{}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/build-exports.js":[function(require,module,exports){
 'use strict';
 
 var makeComposition = require('./composition').makeComposition;
@@ -13655,7 +13664,7 @@ function getClassChain(obj) {
   return acc;
 }
 
-},{"./composition":21}],21:[function(require,module,exports){
+},{"./composition":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/composition.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/composition.js":[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -13735,7 +13744,7 @@ function ignoreComposition(values) {
  */
 function Composition() {}
 
-},{}],22:[function(require,module,exports){
+},{}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/csjs.js":[function(require,module,exports){
 'use strict';
 
 var extractExtends = require('./css-extract-extends');
@@ -13813,7 +13822,7 @@ function without(obj, unwanted) {
   }, {});
 }
 
-},{"./build-exports":20,"./composition":21,"./css-extract-extends":23,"./css-key":24,"./extract-exports":25,"./scopeify":31}],23:[function(require,module,exports){
+},{"./build-exports":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/build-exports.js","./composition":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/composition.js","./css-extract-extends":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/css-extract-extends.js","./css-key":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/css-key.js","./extract-exports":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/extract-exports.js","./scopeify":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/scopeify.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/css-extract-extends.js":[function(require,module,exports){
 'use strict';
 
 var makeComposition = require('./composition').makeComposition;
@@ -13866,7 +13875,7 @@ function getClassName(str) {
   return trimmed[0] === '.' ? trimmed.substr(1) : trimmed;
 }
 
-},{"./composition":21}],24:[function(require,module,exports){
+},{"./composition":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/composition.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/css-key.js":[function(require,module,exports){
 'use strict';
 
 /**
@@ -13876,7 +13885,7 @@ function getClassName(str) {
 
 module.exports = ' css ';
 
-},{}],25:[function(require,module,exports){
+},{}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/extract-exports.js":[function(require,module,exports){
 'use strict';
 
 var regex = require('./regex');
@@ -13903,7 +13912,7 @@ function getExport(css, regex) {
   return prop;
 }
 
-},{"./regex":28}],26:[function(require,module,exports){
+},{"./regex":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/regex.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/get-css.js":[function(require,module,exports){
 'use strict';
 
 var cssKey = require('./css-key');
@@ -13912,7 +13921,7 @@ module.exports = function getCss(csjs) {
   return csjs[cssKey];
 };
 
-},{"./css-key":24}],27:[function(require,module,exports){
+},{"./css-key":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/css-key.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/hash-string.js":[function(require,module,exports){
 'use strict';
 
 /**
@@ -13930,7 +13939,7 @@ module.exports = function hashStr(str) {
   return hash >>> 0;
 };
 
-},{}],28:[function(require,module,exports){
+},{}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/regex.js":[function(require,module,exports){
 'use strict';
 
 var findClasses = /(\.)(?!\d)([^\s\.,{\[>+~#:)]*)(?![^{]*})/.source;
@@ -13946,7 +13955,7 @@ module.exports = {
   ignoreComments: ignoreComments,
 };
 
-},{}],29:[function(require,module,exports){
+},{}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/replace-animations.js":[function(require,module,exports){
 var ignoreComments = require('./regex').ignoreComments;
 
 module.exports = replaceAnimations;
@@ -13977,7 +13986,7 @@ function replaceAnimations(result) {
   return result;
 }
 
-},{"./regex":28}],30:[function(require,module,exports){
+},{"./regex":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/regex.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/scoped-name.js":[function(require,module,exports){
 'use strict';
 
 var encode = require('./base62-encode');
@@ -13991,7 +14000,7 @@ module.exports = function fileScoper(fileSrc) {
   }
 };
 
-},{"./base62-encode":19,"./hash-string":27}],31:[function(require,module,exports){
+},{"./base62-encode":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/base62-encode.js","./hash-string":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/hash-string.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/scopeify.js":[function(require,module,exports){
 'use strict';
 
 var fileScoper = require('./scoped-name');
@@ -14032,7 +14041,7 @@ function scopify(css, ignores) {
   return replaceAnimations(result);
 }
 
-},{"./regex":28,"./replace-animations":29,"./scoped-name":30}],32:[function(require,module,exports){
+},{"./regex":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/regex.js","./replace-animations":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/replace-animations.js","./scoped-name":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs/lib/scoped-name.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/hyperscript-attribute-to-property/index.js":[function(require,module,exports){
 module.exports = attributeToProperty
 
 var transform = {
@@ -14053,7 +14062,7 @@ function attributeToProperty (h) {
   }
 }
 
-},{}],33:[function(require,module,exports){
+},{}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/hyperx/index.js":[function(require,module,exports){
 var attrToProp = require('hyperscript-attribute-to-property')
 
 var VAR = 0, TEXT = 1, OPEN = 2, CLOSE = 3, ATTR = 4
@@ -14349,7 +14358,7 @@ var closeRE = RegExp('^(' + [
 ].join('|') + ')(?:[\.#][a-zA-Z0-9\u007F-\uFFFF_:-]+)*$')
 function selfClosing (tag) { return closeRE.test(tag) }
 
-},{"hyperscript-attribute-to-property":32}],34:[function(require,module,exports){
+},{"hyperscript-attribute-to-property":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/hyperscript-attribute-to-property/index.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/insert-css/index.js":[function(require,module,exports){
 var inserted = {};
 
 module.exports = function (css, options) {
@@ -14373,10 +14382,11 @@ module.exports = function (css, options) {
     }
 };
 
-},{}],35:[function(require,module,exports){
+},{}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/src/editor.js":[function(require,module,exports){
 const bel = require('bel')
 const csjs = require('csjs-inject')
 const codemirror = require('codemirror')
+
 const mode_css = require('codemirror/mode/css/css')
 const mode_xml = require('codemirror/mode/xml/xml')
 const mode_md = require('codemirror/mode/markdown/markdown')
@@ -14385,7 +14395,6 @@ const mode_html = require('codemirror/mode/htmlmixed/htmlmixed')
 const mode_ehtml = require('codemirror/mode/htmlembedded/htmlembedded')
 
 const style = require('./style.js')
-document.head.appendChild(style)
 
 // THEME
 // <link href="theme/neo.css">
@@ -14408,7 +14417,7 @@ module.exports = editor
 
 editor.defaults = codemirror.defaults
 
-function editor (opts = editor.defaults) {
+function editor (opts = editor.defaults, theme) {
   /* FEATURES - Functionality includes
   + undo,
   + redo,
@@ -14462,16 +14471,19 @@ function editor (opts = editor.defaults) {
     smartIndent: true,
     tabSize: 2,
     indentUnit: 2,
-    // theme: 'mistakes' // borrowed from mistakes.io
+    // theme: 'liquibyte', // THEME1
+    // theme: 'ambiance', // THEME2
+    // theme: 'erlang-dark', // THEME3
+    theme: 'play-dark', // THEME4
     updateInterval: 500,
     dragAndDrop: true
   }
-
+  const css = style(theme)
   // codemirror(place: Element|fn(Element), ?option: object)
-  const api = codemirror(document.createElement('div'))
-
+  const api = codemirror(document.createElement('div'), defaults)
   Object.keys(opts).forEach(key => api.setOption(key, opts[key]))
-  const el = bel`<div class=${css.editor}>${api.getWrapperElement()}</div>`
+  // const el = bel`<div class=${css.editor}>${api.getWrapperElement()}</div>`
+  const el = api.getWrapperElement()
   // ALTERNATIVE:
   // var myCodeMirror = CodeMirror(function (element) {
   //   document.body.appendChild(element)
@@ -14479,13 +14491,25 @@ function editor (opts = editor.defaults) {
   el.api = api
 
   api.on('change', (...args) => console.log('change', args.length))
+
   const autoresize = () => {
     const { innerWidth, innerHeight } = window
-    console.log('RESIZE', innerWidth, innerHeight)
-    // api.setSize('250', '150')
+    console.log('AUTO-RESIZE', innerWidth, innerHeight)
     const width = el.parentElement.clientWidth
     const height = el.parentElement.clientHeight
-    api.setSize(width, height)
+    // api.setSize('250', '150')
+
+    // @TODO: make responsive!
+    // debugger
+
+    // window.addEventListener('resize', event => {
+    //   // @TODO: this task needs to be performed by the `twm` instead
+    //   var height = ed.el.getBoundingClientRect().height
+    //   var width = window.innerWidth
+    //   ed.el.api.resize({ width: width / 2, height })
+    // })
+    // api.setSize(width, height)
+    // api.refresh()
   }
   const resize = (size = {}) => {
     // refresh()
@@ -14498,6 +14522,7 @@ function editor (opts = editor.defaults) {
     // this method to ensure CodeMirror is still looking as intended.
     if (size === 'auto') {
       autoresize() // setTimeout(autoresize, 0) // @TODO: .on('attach')
+      window.removeEventListener('resize', autoresize)
       window.addEventListener('resize', autoresize)
     } else if (Object(size) === size) {
       const { width, height } = size
@@ -14535,14 +14560,6 @@ function debounce (fn) {
     timeout = setTimeout(exec, wait)
   }
 }
-
-const css = csjs`
-.editor {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  align-items: center;
-}`
 
 /*
 CodePrinter.defaults = {
@@ -14594,10 +14611,46 @@ CodePrinter.defaults = {
 }
 */
 
-},{"./style.js":36,"bel":3,"codemirror":5,"codemirror/mode/css/css":6,"codemirror/mode/htmlembedded/htmlembedded":7,"codemirror/mode/htmlmixed/htmlmixed":8,"codemirror/mode/javascript/javascript":9,"codemirror/mode/markdown/markdown":10,"codemirror/mode/xml/xml":12,"csjs-inject":15}],36:[function(require,module,exports){
+},{"./style.js":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/src/style.js","bel":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/bel/browser.js","codemirror":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/lib/codemirror.js","codemirror/mode/css/css":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/css/css.js","codemirror/mode/htmlembedded/htmlembedded":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/htmlembedded/htmlembedded.js","codemirror/mode/htmlmixed/htmlmixed":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/htmlmixed/htmlmixed.js","codemirror/mode/javascript/javascript":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/javascript/javascript.js","codemirror/mode/markdown/markdown":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/markdown/markdown.js","codemirror/mode/xml/xml":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/codemirror/mode/xml/xml.js","csjs-inject":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs-inject/index.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/src/style.js":[function(require,module,exports){
+const csjs = require('csjs-inject')
+
 const style = document.createElement('style')
 style.setAttribute('class', 'codemirror')
-style.textContent = `
+document.head.appendChild(style)
+
+const theme = document.createElement('style')
+theme.setAttribute('class', 'theme')
+document.head.appendChild(theme)
+
+module.exports = (THEMES => (theme, key = JSON.stringify(theme)) =>{
+  return THEMES.get(key) || THEMES.set(key, defaults(theme)).get(key)
+} // @TODO: maybe use "WeakMap" instead? ...and init on first use?
+)(new Map([]))
+
+const defaults = ({
+  color_bgEditor = 'hsla(0, 0%, 14%, 1)',
+  color_bgLinebar = 'hsla(0, 0%, 14%, 1)',
+  color_seperator = 'hsla(0, 0%, 8%, 1)',
+} = {}) => {
+  const css = csjs`
+    .editor {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      align-items: center;
+    }`
+  // MORE JAVASCRIPT THEMES:
+  // https://github.com/codemirror/CodeMirror/tree/ed8dfeb5e2ed25b5dd1f1eccc7b757ca6dbd118d/theme
+  // theme.textContent = require('./theme1.js')({
+  // theme.textContent = require('./theme2.js')({
+  // theme.textContent = require('./theme3.js')({
+  theme.textContent = require('./theme4.js')({
+    color_bgEditor,
+    color_bgLinebar,
+    color_seperator
+  })
+  style.textContent = `
   /* BASICS */
 
   .CodeMirror {
@@ -14624,8 +14677,8 @@ style.textContent = `
   /* GUTTER */
 
   .CodeMirror-gutters {
-    border-right: 1px solid #ddd;
-    background-color: #f7f7f7;
+    border-right: 2px solid ${color_seperator};
+    background-color: ${color_bgLinebar};
     white-space: nowrap;
   }
   .CodeMirror-linenumbers {}
@@ -14758,7 +14811,7 @@ style.textContent = `
   .CodeMirror {
     position: relative;
     overflow: hidden;
-    background: white;
+    background: ${color_bgEditor};
   }
 
   .CodeMirror-scroll {
@@ -14943,8 +14996,50 @@ style.textContent = `
   .cm-tab-wrap-hack:after { content: ''; }
 
   /* Help users use markselection to safely style text background */
-  span.CodeMirror-selectedtext { background: none; }
-`
-module.exports = style
+  span.CodeMirror-selectedtext { background: none; }`
+  return css
+}
 
-},{}]},{},[1]);
+},{"./theme4.js":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/src/theme4.js","csjs-inject":"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/node_modules/csjs-inject/index.js"}],"/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/src/theme4.js":[function(require,module,exports){
+module.exports = ({
+  color_bgEditor,
+  color_bgLinebar,
+  color_seperator
+}) => `
+.cm-s-play-dark.CodeMirror { background: ${color_bgEditor}; color: white; }
+.cm-s-play-dark div.CodeMirror-selected { background: #b36539; }
+.cm-s-play-dark .CodeMirror-line::selection, .cm-s-play-dark .CodeMirror-line > span::selection, .cm-s-play-dark .CodeMirror-line > span > span::selection { background: rgba(179, 101, 57, .99); }
+.cm-s-play-dark .CodeMirror-line::-moz-selection, .cm-s-play-dark .CodeMirror-line > span::-moz-selection, .cm-s-play-dark .CodeMirror-line > span > span::-moz-selection { background: rgba(179, 101, 57, .99); }
+.cm-s-play-dark .CodeMirror-gutters { background: ${color_seperator}; border-right: 1px solid ${color_bgLinebar}; }
+.cm-s-play-dark .CodeMirror-guttermarker { color: white; }
+.cm-s-play-dark .CodeMirror-guttermarker-subtle { color: #d0d0d0; }
+.cm-s-play-dark .CodeMirror-linenumber { color: #d0d0d0; }
+.cm-s-play-dark .CodeMirror-cursor { border-left: 1px solid white; }
+
+.cm-s-play-dark span.cm-quote      { color: #ccc; }
+.cm-s-play-dark span.cm-atom       { color: #f133f1; }
+.cm-s-play-dark span.cm-attribute  { color: #ff80e1; }
+.cm-s-play-dark span.cm-bracket    { color: #ff9d00; }
+.cm-s-play-dark span.cm-builtin    { color: #eaa; }
+.cm-s-play-dark span.cm-comment    { color: #77f; }
+.cm-s-play-dark span.cm-def        { color: ${'#9BC53D'}; /* #e7a */ }
+.cm-s-play-dark span.cm-keyword    { color: ${'#14b9d5'}; /* #ffee80 */ }
+.cm-s-play-dark span.cm-meta       { color: #50fefe; }
+.cm-s-play-dark span.cm-number     { color: #ffd0d0; }
+.cm-s-play-dark span.cm-operator   { color: ${'blue'}; /* #d55 */ }
+.cm-s-play-dark span.cm-property   { color: #ccc; }
+.cm-s-play-dark span.cm-qualifier  { color: #ccc; }
+.cm-s-play-dark span.cm-special    { color: #ffbbbb; }
+.cm-s-play-dark span.cm-string     { color: #3ad900; }
+.cm-s-play-dark span.cm-string-2   { color: #ccc; }
+.cm-s-play-dark span.cm-tag        { color: #9effff; }
+.cm-s-play-dark span.cm-variable   { color: ${'white'}; /* #50fe50 */ }
+.cm-s-play-dark span.cm-variable-2 { color: #e0e; }
+.cm-s-play-dark span.cm-variable-3, .cm-s-play-dark span.cm-type { color: #ccc; }
+.cm-s-play-dark span.cm-error      { color: #9d1e15; }
+
+.cm-s-play-dark .CodeMirror-activeline-background { background: #013461; }
+.cm-s-play-dark .CodeMirror-matchingbracket { outline:1px solid grey; color:white !important; }
+`
+
+},{}]},{},["/home/serapath/Desktop/dev/code/@editors/repo/coding-editor/demo/demo.js"]);

@@ -1,6 +1,7 @@
 const bel = require('bel')
 const csjs = require('csjs-inject')
 const codemirror = require('codemirror')
+
 const mode_css = require('codemirror/mode/css/css')
 const mode_xml = require('codemirror/mode/xml/xml')
 const mode_md = require('codemirror/mode/markdown/markdown')
@@ -9,7 +10,6 @@ const mode_html = require('codemirror/mode/htmlmixed/htmlmixed')
 const mode_ehtml = require('codemirror/mode/htmlembedded/htmlembedded')
 
 const style = require('./style.js')
-document.head.appendChild(style)
 
 // THEME
 // <link href="theme/neo.css">
@@ -32,7 +32,7 @@ module.exports = editor
 
 editor.defaults = codemirror.defaults
 
-function editor (opts = editor.defaults) {
+function editor (opts = editor.defaults, theme) {
   /* FEATURES - Functionality includes
   + undo,
   + redo,
@@ -86,16 +86,19 @@ function editor (opts = editor.defaults) {
     smartIndent: true,
     tabSize: 2,
     indentUnit: 2,
-    // theme: 'mistakes' // borrowed from mistakes.io
+    // theme: 'liquibyte', // THEME1
+    // theme: 'ambiance', // THEME2
+    // theme: 'erlang-dark', // THEME3
+    theme: 'play-dark', // THEME4
     updateInterval: 500,
     dragAndDrop: true
   }
-
+  const css = style(theme)
   // codemirror(place: Element|fn(Element), ?option: object)
-  const api = codemirror(document.createElement('div'))
-
+  const api = codemirror(document.createElement('div'), defaults)
   Object.keys(opts).forEach(key => api.setOption(key, opts[key]))
-  const el = bel`<div class=${css.editor}>${api.getWrapperElement()}</div>`
+  // const el = bel`<div class=${css.editor}>${api.getWrapperElement()}</div>`
+  const el = api.getWrapperElement()
   // ALTERNATIVE:
   // var myCodeMirror = CodeMirror(function (element) {
   //   document.body.appendChild(element)
@@ -103,13 +106,25 @@ function editor (opts = editor.defaults) {
   el.api = api
 
   api.on('change', (...args) => console.log('change', args.length))
+
   const autoresize = () => {
     const { innerWidth, innerHeight } = window
-    console.log('RESIZE', innerWidth, innerHeight)
-    // api.setSize('250', '150')
+    console.log('AUTO-RESIZE', innerWidth, innerHeight)
     const width = el.parentElement.clientWidth
     const height = el.parentElement.clientHeight
-    api.setSize(width, height)
+    // api.setSize('250', '150')
+
+    // @TODO: make responsive!
+    // debugger
+
+    // window.addEventListener('resize', event => {
+    //   // @TODO: this task needs to be performed by the `twm` instead
+    //   var height = ed.el.getBoundingClientRect().height
+    //   var width = window.innerWidth
+    //   ed.el.api.resize({ width: width / 2, height })
+    // })
+    // api.setSize(width, height)
+    // api.refresh()
   }
   const resize = (size = {}) => {
     // refresh()
@@ -122,6 +137,7 @@ function editor (opts = editor.defaults) {
     // this method to ensure CodeMirror is still looking as intended.
     if (size === 'auto') {
       autoresize() // setTimeout(autoresize, 0) // @TODO: .on('attach')
+      window.removeEventListener('resize', autoresize)
       window.addEventListener('resize', autoresize)
     } else if (Object(size) === size) {
       const { width, height } = size
@@ -159,14 +175,6 @@ function debounce (fn) {
     timeout = setTimeout(exec, wait)
   }
 }
-
-const css = csjs`
-.editor {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  align-items: center;
-}`
 
 /*
 CodePrinter.defaults = {

@@ -1,11 +1,11 @@
 {
   "name": "coding-editor",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "codemirror based code-editor",
   "main": "src/editor.js",
   "scripts": {
-    "start": "budo demo.js:bundle.js --open --live",
-    "build": "browserify demo.js > bundle.js",
+    "start": "budo demo/demo.js:bundle.js --title $npm_package_name --force-default-index --open --live --ssl",
+    "build": "browserify --full-paths demo/demo.js > bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -16,12 +16,20 @@
   ],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serapath/coding-editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serapath/coding-editor/issues"
+  },
+  "homepage": "https://github.com/serapath/coding-editor#readme",
   "dependencies": {
     "bel": "^6.0.0",
     "codemirror": "^5.39.2",
     "csjs-inject": "^1.0.1"
   },
   "devDependencies": {
-    "budo": "^11.3.2"
+    "budo": "^11.6.0"
   }
 }
