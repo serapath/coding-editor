@@ -107,24 +107,44 @@ function editor (opts = editor.defaults, theme) {
 
   api.on('change', (...args) => console.log('change', args.length))
 
+  window.addEventListener('resize', event => {
+
+  })
+
   const autoresize = () => {
-    const { innerWidth, innerHeight } = window
-    console.log('AUTO-RESIZE', innerWidth, innerHeight)
-    const width = el.parentElement.clientWidth
-    const height = el.parentElement.clientHeight
-    // api.setSize('250', '150')
+    // @TODO: this task needs to be performed by the `twm` instead
+    const ed = el
+    var height = ed.parentElement.getBoundingClientRect().height
+    var width = window.innerWidth
+    console.log('width, height')
+    console.log(width, height)
+    api.resize({ width: width / 2, height })
 
-    // @TODO: make responsive!
-    // debugger
-
-    // window.addEventListener('resize', event => {
-    //   // @TODO: this task needs to be performed by the `twm` instead
-    //   var height = ed.el.getBoundingClientRect().height
-    //   var width = window.innerWidth
-    //   ed.el.api.resize({ width: width / 2, height })
-    // })
+    // const { innerWidth, innerHeight } = window
+    // console.log('AUTO-RESIZE', innerWidth, innerHeight)
+    //
+    // // @TODO: problem: the `el.parentElement` adapts size to content
+    // //        so after making the editor in HALF, next time it will go to "one quarter", etc...
+    // // const width = el.parentElement.clientWidth / 2
+    // // const height = el.parentElement.clientHeight / 2
+    //
+    // // @HACK: because the editor is used in a 50% split screen inside play-editor
+    // const width = innerWidth / 2 // so uses half the width
+    // const height = innerHeight - 100 // and a bit less than the full height
+    //
+    // // el.parentElement.style.height = `${height}px`
+    // // el.parentElement.style.width = `${width}px`
+    // console.log('width, height')
+    // console.log(width, height)
     // api.setSize(width, height)
     // api.refresh()
+    //
+    // // @TODO: make responsive!
+    // // debugger
+    //
+    //
+    // api.setSize(width, height)
+    api.refresh()
   }
   const resize = (size = {}) => {
     // refresh()
@@ -136,6 +156,7 @@ function editor (opts = editor.defaults, theme) {
     // or unhides it, you should probably follow up by calling
     // this method to ensure CodeMirror is still looking as intended.
     if (size === 'auto') {
+      console.error('AUTO')
       autoresize() // setTimeout(autoresize, 0) // @TODO: .on('attach')
       window.removeEventListener('resize', autoresize)
       window.addEventListener('resize', autoresize)
