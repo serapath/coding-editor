@@ -1,6 +1,8 @@
+
 const bel = require('bel')
 const csjs = require('csjs-inject')
-const codemirror = require('codemirror')
+
+const codemirror = require('codemirror-solidity')
 
 const mode_css = require('codemirror/mode/css/css')
 const mode_xml = require('codemirror/mode/xml/xml')
@@ -95,7 +97,8 @@ function editor (opts = editor.defaults, theme) {
   }
   const css = style(theme)
   // codemirror(place: Element|fn(Element), ?option: object)
-  const api = codemirror(document.createElement('div'), defaults)
+
+  const api = CodeMirror(document.createElement('div'), defaults)
   Object.keys(opts).forEach(key => api.setOption(key, opts[key]))
   // const el = bel`<div class=${css.editor}>${api.getWrapperElement()}</div>`
   const el = api.getWrapperElement()

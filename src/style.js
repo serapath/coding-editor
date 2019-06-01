@@ -14,7 +14,7 @@ module.exports = (THEMES => (theme, key = JSON.stringify(theme)) =>{
 )(new Map([]))
 
 const defaults = ({
-  color_bgEditor = 'hsla(0, 0%, 14%, 1)',
+  color_bgEditor = 'hsla(0, 0%, 100%, 1)',
   color_bgLinebar = 'hsla(0, 0%, 14%, 1)',
   color_seperator = 'hsla(0, 0%, 8%, 1)',
 } = {}) => {
@@ -31,7 +31,7 @@ const defaults = ({
   // theme.textContent = require('./theme1.js')({
   // theme.textContent = require('./theme2.js')({
   // theme.textContent = require('./theme3.js')({
-  theme.textContent = require('./theme4.js')({
+  theme.textContent = require('./themeSolidity.js')({
     color_bgEditor,
     color_bgLinebar,
     color_seperator
